@@ -21,18 +21,21 @@ bytediff.start = bytediff;
 bytediff.stop = function() {
     return es.map(function(file, cb) {
         var finalsize = Buffer.byteLength(String(file.contents)),
-            saving    = file.bytediff - finalsize,
+            saving    = 0,
             didsave   = ' saved ',
             report    = '',
             newsize;
 
+        if (finalsize > file.bytediff) {
+            saving  = finalsize - file.bytediff,
+            newsize = gutil.colors.yellow(filesize(finalsize));
+            didsave = ' gained ';
+        } else {
+            saving  = file.bytediff - finalsize;
+            newsize = gutil.colors.green(filesize(finalsize));
+        }
+
         if (saving > 0) {
-            if (finalsize > file.bytediff) {
-                newsize = gutil.colors.yellow(filesize(finalsize));
-                didsave = ' gained ';
-            } else {
-                newsize = gutil.colors.green(filesize(finalsize));
-            }
             report = ' (' + filesize(file.bytediff) + ' -> ' + newsize + ')';
         }
         gutil.log(path.basename(file.path) + didsave + filesize(saving) + report);
