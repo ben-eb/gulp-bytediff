@@ -5,10 +5,10 @@
 var filesize = require('filesize'),
     gutil = require('gulp-util'),
     path = require('path'),
-    es = require('event-stream');
+    map = require('map-stream');
 
 var bytediff = function() {
-    return es.map(function(file, cb) {
+    return map(function(file, cb) {
         // Persist the original size of the file for later
         file.bytediff = Buffer.byteLength(String(file.contents));
         cb(null, file);
@@ -19,7 +19,7 @@ var bytediff = function() {
 bytediff.start = bytediff;
 
 bytediff.stop = function() {
-    return es.map(function(file, cb) {
+    return map(function(file, cb) {
         var finalsize = Buffer.byteLength(String(file.contents)),
             saving    = 0,
             didsave   = ' saved ',
