@@ -7,13 +7,13 @@ var bytediff = require('./index'),
     expect   = require('chai').expect,
     gutil    = require('gulp-util'),
     gulp     = require('gulp'),
-    es       = require('event-stream');
+    map      = require('map-stream');
 
 describe('gulp-bytediff', function() {
     it('should store the original size on the file object', function(cb) {
         gulp.src('./index.js')
             .pipe(bytediff())
-            .pipe(es.map(function(file) {
+            .pipe(map(function(file) {
                 expect(file.bytediff).to.be.a('number');
                 cb();
             }));
@@ -28,12 +28,12 @@ describe('gulp-bytediff', function() {
         })(process.stdout.write);
         gulp.src('./index.js')
             .pipe(bytediff())
-            .pipe(es.map(function(file, done) {
+            .pipe(map(function(file, done) {
                 file.contents = new Buffer('minification happened');
                 done(null, file);
             }))
             .pipe(bytediff.stop())
-            .pipe(es.map(function(file) {
+            .pipe(map(function(file) {
                 expect(output).to.have.string('21 B');
                 cb();
             }));
