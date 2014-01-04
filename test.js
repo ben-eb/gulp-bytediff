@@ -1,11 +1,10 @@
 /* jshint node: true */
-/* global describe, it, before, beforeEach, after, afterEach */
+/* global describe, it */
 
 'use strict';
 
 var bytediff = require('./index'),
     expect   = require('chai').expect,
-    gutil    = require('gulp-util'),
     gulp     = require('gulp'),
     map      = require('map-stream');
 
@@ -21,7 +20,7 @@ describe('gulp-bytediff', function() {
     it('should be able to report the new size of a file', function(cb) {
         var output = '';
         process.stdout.write = (function(write) {
-            return function(string, encoding, fd) {
+            return function(string) {
                 output = string;
                 write.apply(process.stdout, arguments);
             };
@@ -33,7 +32,7 @@ describe('gulp-bytediff', function() {
                 done(null, file);
             }))
             .pipe(bytediff.stop())
-            .pipe(map(function(file) {
+            .pipe(map(function() {
                 expect(output).to.have.string('21 B');
                 cb();
             }));
