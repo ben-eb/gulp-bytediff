@@ -27,7 +27,7 @@ bytediff.stop = function() {
             newsize;
 
         if (finalsize > file.bytediff) {
-            saving  = finalsize - file.bytediff,
+            saving  = finalsize - file.bytediff;
             newsize = gutil.colors.yellow(filesize(finalsize));
             didsave = ' gained ';
         } else {
