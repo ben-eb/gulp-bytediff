@@ -12,7 +12,7 @@ npm install gulp-bytediff --save-dev
 
 Take any gulpplugin, or series of gulpplugins and see how much the build process added to, or removed from, your filesize. This example uses another of my modules, [gulp-csso](https://npmjs.org/package/gulp-csso).
 
-```
+```js
 var gulp = require('gulp');
 var bytediff = require('gulp-bytediff');
 var csso = require('gulp-csso');
