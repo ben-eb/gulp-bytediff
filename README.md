@@ -1,4 +1,4 @@
-# [gulp](https://github.com/wearefractal/gulp)-bytediff [![Build Status](https://travis-ci.org/ben-eb/gulp-bytediff.png?branch=master)](https://travis-ci.org/ben-eb/gulp-bytediff) [![NPM version](https://badge.fury.io/js/gulp-bytediff.png)](http://badge.fury.io/js/gulp-bytediff) [![Dependency Status](https://gemnasium.com/ben-eb/gulp-bytediff.png)](https://gemnasium.com/ben-eb/gulp-bytediff)
+# [gulp](https://github.com/wearefractal/gulp)-bytediff [![Build Status](https://travis-ci.org/ben-eb/gulp-bytediff.svg?branch=master)](https://travis-ci.org/ben-eb/gulp-bytediff) [![NPM version](https://badge.fury.io/js/gulp-bytediff.png)](http://badge.fury.io/js/gulp-bytediff) [![Dependency Status](https://gemnasium.com/ben-eb/gulp-bytediff.png)](https://gemnasium.com/ben-eb/gulp-bytediff)
 
 > Compare file sizes before and after your gulp build process.
 
