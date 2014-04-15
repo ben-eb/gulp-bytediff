@@ -22,7 +22,6 @@ bytediff.start = bytediff;
 
 bytediff.stop = function (formatFn) {
     return map(function(file, cb) {
-        /* jshint eqnull:true*/
         if (typeof formatFn !== 'function') {
             formatFn = function (data) {
                 var saved = (data.savings > 0) ? ' saved ' : ' gained ';
