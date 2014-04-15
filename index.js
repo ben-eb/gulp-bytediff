@@ -2,43 +2,50 @@
 
 'use strict';
 
-var filesize = require('filesize'),
+var size = require('filesize'),
     gutil = require('gulp-util'),
     path = require('path'),
     map = require('map-stream');
 
-var bytediff = function() {
-    return map(function(file, cb) {
+function bytediff() {
+    return map( function (file, cb) {
         // Persist the original size of the file for later
-        file.bytediff = Buffer.byteLength(String(file.contents));
+        file.bytediff = {
+            startSize: file.contents.length
+        };
         cb(null, file);
     });
-};
+}
 
 // Convenience method
 bytediff.start = bytediff;
 
-bytediff.stop = function() {
+bytediff.stop = function (formatFn) {
     return map(function(file, cb) {
-        var finalsize = Buffer.byteLength(String(file.contents)),
-            saving    = 0,
-            didsave   = ' saved ',
-            report    = '',
-            newsize;
-
-        if (finalsize > file.bytediff) {
-            saving  = finalsize - file.bytediff;
-            newsize = gutil.colors.yellow(filesize(finalsize));
-            didsave = ' gained ';
-        } else {
-            saving  = file.bytediff - finalsize;
-            newsize = gutil.colors.green(filesize(finalsize));
+        function log(data) {
+            /* jshint eqnull:true*/
+            if (formatFn == null) {
+                formatFn = function (data) {
+                    var saved = (data.savings > 0) ? ' saved ' : ' gained ';
+                    var color = (data.savings > 0) ? 'green' : 'yellow';
+                    var report = ' (' + size(data.startSize) + ' -> ' + gutil.colors[color](size(data.endSize)) + ')';
+                    return data.fileName + saved +
+                      size(Math.abs(data.savings)) + report;
+                };
+            }
+            gutil.log(formatFn(data));
         }
 
-        if (saving > 0) {
-            report = ' (' + filesize(file.bytediff) + ' -> ' + newsize + ')';
-        }
-        gutil.log(path.basename(file.path) + didsave + filesize(saving) + report);
+        var endSize = file.contents.length;
+        var data = {
+            fileName: path.basename(file.path),
+            startSize: file.bytediff.startSize,
+            endSize: endSize,
+            savings: file.bytediff.startSize - endSize,
+            percent: (endSize / file.bytediff.startSize)
+        };
+        log(data);
+
         cb(null, file);
     });
 };
