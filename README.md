@@ -25,3 +25,32 @@ gulp.task('default', function() {
         .pipe(gulp.dest('./out'));
 });
 ```
+
+## API
+
+### bytediff.start() or bytediff()
+
+Creates a new property on the file object that saves its current size.
+
+### bytediff.stop(formatFunction)
+
+Outputs the difference between the property saved with the `start()` method and the current filesize.
+
+Customise the output of this by using the format function. An example:
+
+```js
+    // ...
+    .pipe(bytediff.stop(function(data) {
+        var difference = (data.savings > 0) ? ' smaller.' : ' larger.';
+        return data.fileName + ' is ' + data.percent + '%' + difference;
+    }))
+    .pipe(gulp.dest('./out'));
+```
+
+The function gets passed an object with the following properties:
+
+* fileName
+* startSize
+* endSize
+* savings
+* percent
