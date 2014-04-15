@@ -22,18 +22,15 @@ bytediff.start = bytediff;
 
 bytediff.stop = function (formatFn) {
     return map(function(file, cb) {
-        function log(data) {
-            /* jshint eqnull:true*/
-            if (formatFn == null) {
-                formatFn = function (data) {
-                    var saved = (data.savings > 0) ? ' saved ' : ' gained ';
-                    var color = (data.savings > 0) ? 'green' : 'yellow';
-                    var report = ' (' + size(data.startSize) + ' -> ' + gutil.colors[color](size(data.endSize)) + ')';
-                    return data.fileName + saved +
-                      size(Math.abs(data.savings)) + report;
-                };
-            }
-            gutil.log(formatFn(data));
+        /* jshint eqnull:true*/
+        if (typeof formatFn !== 'function') {
+            formatFn = function (data) {
+                var saved = (data.savings > 0) ? ' saved ' : ' gained ';
+                var color = (data.savings > 0) ? 'green' : 'yellow';
+                var report = ' (' + size(data.startSize) + ' -> ' + gutil.colors[color](size(data.endSize)) + ')';
+                return data.fileName + saved +
+                  size(Math.abs(data.savings)) + report;
+            };
         }
 
         var endSize = file.contents.length;
@@ -44,7 +41,7 @@ bytediff.stop = function (formatFn) {
             savings: file.bytediff.startSize - endSize,
             percent: (endSize / file.bytediff.startSize)
         };
-        log(data);
+        gutil.log( formatFn(data) );
 
         cb(null, file);
     });
