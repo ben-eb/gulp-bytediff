@@ -13,7 +13,7 @@ describe('gulp-bytediff', function() {
         gulp.src('./index.js')
             .pipe(bytediff())
             .pipe(map(function(file) {
-                expect(file.bytediff).to.be.a('number');
+                expect(file.bytediff.startSize).to.be.a('number');
                 cb();
             }));
     });
