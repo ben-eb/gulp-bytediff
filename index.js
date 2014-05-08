@@ -40,7 +40,9 @@ bytediff.stop = function (formatFn) {
             savings: file.bytediff.startSize - endSize,
             percent: (endSize / file.bytediff.startSize)
         };
-        gutil.log( formatFn(data) );
+        if (data.savings !== 0) {
+          gutil.log( formatFn(data) );
+        }
 
         cb(null, file);
     });
