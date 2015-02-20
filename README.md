@@ -1,4 +1,4 @@
-# [gulp](https://github.com/wearefractal/gulp)-bytediff [![Build Status](https://travis-ci.org/ben-eb/gulp-bytediff.svg?branch=master)](https://travis-ci.org/ben-eb/gulp-bytediff) [![NPM version](https://badge.fury.io/js/gulp-bytediff.png)](http://badge.fury.io/js/gulp-bytediff) [![Dependency Status](https://gemnasium.com/ben-eb/gulp-bytediff.png)](https://gemnasium.com/ben-eb/gulp-bytediff)
+# [gulp][gulp]-bytediff [![Build Status](https://travis-ci.org/ben-eb/gulp-bytediff.svg?branch=master)][ci] [![NPM version](https://badge.fury.io/js/gulp-bytediff.svg)][npm] [![Dependency Status](https://gemnasium.com/ben-eb/gulp-bytediff.svg)][deps]
 
 > Compare file sizes before and after your gulp build process.
 
@@ -10,7 +10,9 @@ npm install gulp-bytediff --save-dev
 
 ## Example
 
-Take any gulpplugin, or series of gulpplugins and see how much the build process added to, or removed from, your filesize. This example uses another of my modules, [gulp-csso](https://npmjs.org/package/gulp-csso).
+Take any gulpplugin, or series of gulpplugins and see how much the build process
+added to, or removed from, your filesize. This example uses another of my
+modules, [gulp-csso](https://npmjs.org/package/gulp-csso).
 
 ```js
 var gulp = require('gulp');
@@ -34,7 +36,8 @@ Creates a new property on the file object that saves its current size.
 
 ### bytediff.stop(formatFunction)
 
-Outputs the difference between the property saved with the `start()` method and the current filesize.
+Outputs the difference between the property saved with the `start()` method
+and the current filesize.
 
 Customise the output of this by using the format function. An example:
 
@@ -54,3 +57,17 @@ The function gets passed an object with the following properties:
 * endSize
 * savings
 * percent
+
+## Contributing
+
+Pull requests are welcome. If you add functionality, then please add unit tests
+to cover it.
+
+## License
+
+MIT © Ben Briggs
+
+[ci]:      https://travis-ci.org/ben-eb/gulp-bytediff
+[deps]:    https://gemnasium.com/ben-eb/gulp-bytediff
+[gulp]:    https://github.com/wearefractal/gulp
+[npm]:     http://badge.fury.io/js/gulp-bytediff
