@@ -20,19 +20,16 @@
     "gulpplugin"
   ],
   "dependencies": {
-    "gulp-util": "~2.2.0",
-    "filesize": "~2.0.0",
-    "map-stream": "~0.1.0"
+    "gulp-util": "~3.0.3",
+    "filesize": "~3.1.0",
+    "map-stream": "~0.0.5"
   },
   "devDependencies": {
-    "chai": "~1.8.1",
-    "clear": "0.0.1",
-    "gulp": "~3.2.3",
-    "gulp-mocha": "~0.2.0",
-    "gulp-jshint": "~1.3.4",
-    "gulp-util": "~2.2.6",
-    "jshint-stylish": "~0.1.5",
-    "mocha": "~1.16.2"
+    "chai": "~2.0.0",
+    "gulp": "~3.8.11",
+    "gulp-jshint": "~1.9.2",
+    "jshint-stylish": "~1.0.0",
+    "mocha": "~2.1.0"
   },
   "main": "index.js"
 }
