@@ -1,6 +1,6 @@
 {
   "name": "gulp-bytediff",
-  "version": "0.2.1",
+  "version": "1.0.0",
   "description": "Compare file sizes before and after your gulp build process.",
   "license": "MIT",
   "homepage": "https://github.com/ben-eb/gulp-bytediff",
