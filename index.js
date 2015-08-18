@@ -1,5 +1,3 @@
-/* jshint node: true */
-
 'use strict';
 
 var size  = require('filesize'),
@@ -11,7 +9,7 @@ function bytediff () {
     return map(function (file, cb) {
         // Persist the original size of the file for later
         file.bytediff = {
-            startSize: file.contents.length
+            startSize: file.contents ? file.contents.length : null
         };
         cb(null, file);
     });
@@ -34,15 +32,17 @@ bytediff.stop = function (formatFn) {
             };
         }
 
-        var endSize = file.contents.length;
+        if (file.bytediff.startSize) {
+            var endSize = file.contents.length;
 
-        gutil.log(formatFn({
-            fileName: path.basename(file.path),
-            startSize: file.bytediff.startSize,
-            endSize: endSize,
-            savings: file.bytediff.startSize - endSize,
-            percent: (endSize / file.bytediff.startSize)
-        }));
+            gutil.log(formatFn({
+                fileName: path.basename(file.path),
+                startSize: file.bytediff.startSize,
+                endSize: endSize,
+                savings: file.bytediff.startSize - endSize,
+                percent: (endSize / file.bytediff.startSize)
+            }));
+        }
 
         cb(null, file);
     });
