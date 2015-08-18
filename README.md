@@ -2,7 +2,9 @@
 
 > Compare file sizes before and after your gulp build process.
 
-Install via [npm](https://npmjs.org/package/gulp-bytediff):
+## Install
+
+With [npm](https://npmjs.org/package/gulp-bytediff) do:
 
 ```
 npm install gulp-bytediff --save-dev
@@ -12,17 +14,17 @@ npm install gulp-bytediff --save-dev
 
 Take any gulpplugin, or series of gulpplugins and see how much the build process
 added to, or removed from, your filesize. This example uses another of my
-modules, [gulp-csso](https://npmjs.org/package/gulp-csso).
+modules, [gulp-cssnano](https://npmjs.org/package/gulp-cssnano).
 
 ```js
 var gulp = require('gulp');
 var bytediff = require('gulp-bytediff');
-var csso = require('gulp-csso');
+var csso = require('gulp-cssnano');
 
 gulp.task('default', function() {
     gulp.src('main.css')
         .pipe(bytediff.start())
-        .pipe(csso())
+        .pipe(cssnano())
         .pipe(bytediff.stop())
         .pipe(gulp.dest('./out'));
 });
@@ -65,7 +67,7 @@ to cover it.
 
 ## License
 
-MIT © Ben Briggs
+MIT © [Ben Briggs](http://beneb.info)
 
 [ci]:      https://travis-ci.org/ben-eb/gulp-bytediff
 [deps]:    https://gemnasium.com/ben-eb/gulp-bytediff
