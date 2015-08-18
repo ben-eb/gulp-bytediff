@@ -12,14 +12,14 @@ npm install gulp-bytediff --save-dev
 
 ## Example
 
-Take any gulpplugin, or series of gulpplugins and see how much the build process
-added to, or removed from, your filesize. This example uses another of my
-modules, [gulp-cssnano](https://npmjs.org/package/gulp-cssnano).
+Take any gulp plugin, or series of gulp plugins, & see how much the build
+process impacted the file size. This example shows how much
+[gulp-cssnano](https://npmjs.org/package/gulp-cssnano) optimized a CSS file:
 
 ```js
 var gulp = require('gulp');
 var bytediff = require('gulp-bytediff');
-var csso = require('gulp-cssnano');
+var cssnano = require('gulp-cssnano');
 
 gulp.task('default', function() {
     gulp.src('main.css')
@@ -39,7 +39,7 @@ Creates a new property on the file object that saves its current size.
 ### bytediff.stop(formatFunction)
 
 Outputs the difference between the property saved with the `start()` method
-and the current filesize.
+and the current file size.
 
 Customise the output of this by using the format function. An example:
 
