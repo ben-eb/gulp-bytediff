@@ -60,6 +60,19 @@ The function gets passed an object with the following properties:
 * savings
 * percent
 
+###    bytediff.report()
+
+Prints a report of the changes. 
+
+```js
+    // ...
+    .pipe(bytediff.stop(function(data) {
+        return data.fileName + ' completed';
+    }))
+    .pipe(gulp.dest('./out'))
+    .on('end', bytediff.report);
+```
+
 ## Contributing
 
 Pull requests are welcome. If you add functionality, then please add unit tests
