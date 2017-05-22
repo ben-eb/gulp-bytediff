@@ -38,6 +38,52 @@ describe('gulp-bytediff', function () {
                 cb();
             }));
     });
+    it('should trigger custom callback, and only custom callback', function(cb) {
+        var output = '';
+        process.stdout.write = (function(write) {
+            return function(string) {
+                output = string;
+                write.apply(process.stdout, arguments);
+            };
+        })(process.stdout.write);
+        gulp.src('./index.js')
+            .pipe(bytediff())
+            .pipe(map(function(file, done) {
+                file.contents = new Buffer('minification happened');
+                done(null, file);
+            }))
+            .pipe(bytediff.stop(function () {
+              console.log('testing123');
+            }))
+            .pipe(map(function() {
+                expect(output).to.have.string('testing123');
+                expect(output).not.to.have.string('index');
+                cb();
+            }));
+    });
+    it('should be able to report the new size of several files at once', function(cb) {
+        var output = '';
+        process.stdout.write = (function(write) {
+            return function(string) {
+                output += string;
+                write.apply(process.stdout, arguments);
+            };
+        })(process.stdout.write);
+        gulp.src(['./index.js', './package.json', './README.md'])
+            .pipe(bytediff())
+            .pipe(map(function(file, done) {
+                file.contents = new Buffer('minification happened');
+                done(null, file);
+            }))
+            .pipe(bytediff.stop(function(){}))
+            .on('end', function(file) {
+                bytediff.report(file);
+                expect(output).to.have.string('index');
+                expect(output).to.have.string('package');
+                expect(output).to.have.string('README');
+                cb();
+            });
+    });
     it('should store the original size on the file object', function (cb) {
         var stream = bytediff();
 
